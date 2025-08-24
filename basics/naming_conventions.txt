@@ -1,0 +1,36 @@
+package main
+
+import "fmt"
+
+type EmployeeGoogle struct {
+	firstName string
+	lastName  string
+	Age       int
+}
+
+type EmployeeApple struct {
+	firstName string
+	lastName  string
+	Age       int
+}
+
+func main() {
+	// PascalCase
+	// Eg - CalculateArea, UserInfo, HTTPClient
+	// Structs, interfaces, enums
+
+	// snake_case
+	// Eg - calculate_area, user_info, http_client
+
+	// UPPERCASE
+	// Naming constants
+	// Eg - MAX_SIZE, DEFAULT_TIMEOUT
+
+	// mixedCase (camelCase)
+	// Eg - calculateArea, userInfo, httpClient
+
+	const MAXRETRIES = 5
+	var employeeId = 1001
+	fmt.Println("employeeID: ", employeeId)
+
+}

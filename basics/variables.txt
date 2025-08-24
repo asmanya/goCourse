@@ -1,0 +1,37 @@
+package basics
+
+import "fmt"
+
+var middleName string = "Doe"
+
+func main() {
+	var age int
+	var name string = "john"
+	var name1 = "jane"
+
+	count := 10
+	lastName := "Smith"
+	// middleName := "Doe"
+
+	// Default values  
+	// Numeric types default to 0
+	// String types default to ""
+	// Boolean types default to false
+	// Pointers, slices, maps, channels, interfaces default to nil
+
+	// ---- Scope
+	printName()
+	fmt.Println(middleName)
+	fmt.Println(age)
+	fmt.Println(name)
+	fmt.Println(name1)
+	fmt.Println(count)
+	fmt.Println(lastName)
+
+}
+
+func printName() {
+	firstName := "Alice"
+	fmt.Println(firstName) // Prints "Alice"
+
+}
