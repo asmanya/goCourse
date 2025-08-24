@@ -1,0 +1,23 @@
+package main
+
+const PI = 3.14
+const GRAVITY = 9.8 // untyped constant
+
+func main() {
+	const days int = 7 // types constants
+	
+	// const block of same type
+	const (
+		monday = 1
+		tuesday = 2
+		wednesday = 3
+		thursday = 4
+		friday int = 5
+		saturday = 6
+		sunday = 7
+	)
+
+	name := "Golang" // cant be done for constants
+
+
+}
