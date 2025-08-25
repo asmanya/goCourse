@@ -1,0 +1,67 @@
+package main
+
+import (
+	"fmt"
+	// "slices"
+)
+
+func main() {
+	// var slice_name []ddata_type
+
+	// var nums []int
+	// var nums1 = []int{1, 2, 3, 4, 5}
+	// nums2 := []int{1, 2, 3, 4, 5}
+
+	// nums3 := make([]int, 5)
+	
+	a := [5]int{1, 2, 3, 4, 5}
+
+	slice := a[1:4]
+	// fmt.Println(slice)
+
+	slice = append(slice, 7, 8, 9)
+	// fmt.Println("slice:", slice)
+
+	// sliceCopy := make([]int, len(slice))
+	// copy(sliceCopy, slice)
+
+	// fmt.Println("slice copy:", sliceCopy)
+
+	// for i, v := range slice {
+	// 	fmt.Println(i, v)
+	// }
+
+	// fmt.Println("element at index 3 of slice is", slice[3])
+
+	slice[3] = 100
+	// fmt.Println("after updating slice:", slice)
+
+	// if slices.Equal(slice, sliceCopy) {
+	// 	fmt.Println("slice and sliceCopy are equal")
+	// } else {
+	// 	fmt.Println("slice and sliceCopy are not equal")
+	// }
+
+
+	// 2D slice
+	twoD := make([][]int, 3)
+
+	for i := 0; i < 3; i++ {
+		innerLen := i + 1
+		twoD[i] = make([]int, innerLen)
+		for j := 0; j < innerLen; j++ {
+			twoD[i][j] = i + j
+		}
+	}
+
+	fmt.Println("2d slice:", twoD)
+
+	// slice[low:high]]
+	slice2 := slice[2:4]
+	fmt.Println("slice2:", slice2)
+
+	fmt.Println("the capacity of slice 2 is: ", cap(slice2))
+
+	fmt.Println("the length of slice 2 is: ", len(slice2))
+
+}

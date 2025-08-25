@@ -1,0 +1,36 @@
+package main
+
+import "fmt"
+
+func main() {
+	/*
+		... is called Ellipsis - this indicates that function can accept 0 or more arguments of same type
+
+		---> variadic paraments must be the last parameters that appear as params
+
+		---> variadic function constains variadic params
+		func <name>(param1 type1, param2 type2, param3 ...type3) returntype {
+			code block
+			return
+		}
+	*/
+
+	fmt.Println(sum("3 digits:", 1, 2, 3))
+	fmt.Println(sum("7 digits:", 1, 2, 3, 4, 3, 23, 5))
+	fmt.Println(sum("10 digits:", 1, 2, 3, 4, 3, 23, 5, 4, 2, 23))
+
+	numbers := []int{1, 2, 3, 4, 5, 9}
+
+	str, total := sum("adding slice elements:", numbers...)
+
+	fmt.Println(str, total)
+}
+
+func sum(returnString string, nums ...int) (string, int) {
+	total := 0
+	for _, v := range nums {
+		total += v
+	}
+
+	return returnString, total
+}

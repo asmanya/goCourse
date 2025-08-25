@@ -1,0 +1,30 @@
+package main
+
+import "fmt"
+
+func main() {
+	age := 25
+	if age >= 18 {
+		fmt.Println("Adult")
+	}
+
+	temperature := 25
+	if temperature > 30 {
+		fmt.Println("It's a hot day")
+	} else if temperature < 15 {
+		fmt.Println("It's a cool day")
+	} else {
+		fmt.Println("It's a moderate day")
+	}
+
+	num := 15
+	if num%2 == 0 {
+		if(num%3 == 0) {
+			fmt.Println("Divisible by 6")
+		} else {
+			fmt.Println("Even number")
+		}
+	} else {
+		fmt.Println("Odd number")
+	}
+}

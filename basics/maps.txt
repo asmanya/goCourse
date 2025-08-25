@@ -1,0 +1,91 @@
+package main
+
+import (
+	"fmt"
+	"maps"
+)
+
+func main() {
+   
+	/*
+	---> declaring a map
+	var mapVariable map[keyType]valueType
+	mapVariable := make(map[keyType]valueType)
+
+	---> using a map literal
+	mapVariables := map[keyType]valueType {
+		key1: val1,
+		key2: val2
+	}
+	*/
+
+	myMap := make(map[string]int)
+	fmt.Println(myMap)
+
+	myMap["key1"] = 9
+	myMap["code"] = 132
+	
+	fmt.Println(myMap)
+	fmt.Println(myMap["code"])
+	fmt.Println(myMap["key1"])
+	
+	myMap["code"] = 12
+	fmt.Println(myMap["code"])
+	
+	delete(myMap, "key1")
+	myMap["key1"] = 10
+	myMap["key2"] = 11
+	myMap["key3"] = 12
+
+	fmt.Println(myMap)
+	// clear(myMap)
+	// fmt.Println(myMap)
+
+	_, ok := myMap["key1"]
+	if ok {
+		fmt.Println("the value exists with key1")
+	} else {
+		fmt.Println("No value exists with key1")
+	}
+
+	fmt.Println( "is a value associated with key", ok)
+
+	myMap2 := map[string]int{"a":1, "b":2}
+	fmt.Println(myMap2)
+
+	
+	if maps.Equal(myMap, myMap2) {
+		fmt.Println("map and map1 are equal")
+	}
+	
+	myMap3 := map[string]int{"a":1, "b":2}
+	if maps.Equal(myMap2, myMap3) {
+		fmt.Println("map2 and map3 are equal")
+	}
+
+	for k, v := range myMap3 {
+		fmt.Println(k, v)
+	}
+
+	var myMap4 map[string]string
+	if myMap4 == nil {
+		fmt.Println("map is initialized to nil value")
+	} else {
+		fmt.Println("map is not initialized to nil value")
+	}
+
+	val := myMap4["key"]
+	fmt.Println(val)
+	
+	myMap4 = make(map[string]string)
+	myMap4["key"] = "value"
+	fmt.Println(myMap4["key"])
+
+	fmt.Println("myMap4 length is", len(myMap4))
+
+	// nested Maps
+	myMap5 := make(map[string]map[string]string)
+
+	myMap5["map4"] = myMap4
+	fmt.Println(myMap5["map4"])
+}

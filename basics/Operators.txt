@@ -1,0 +1,27 @@
+package main
+
+func main() {
+/*
+Logical Operators
+   	! (logical NOT)
+	|| (logical OR)
+	&& (logical AND)
+
+Bitwise Operators
+	&  (bitwise AND)
+	|  (bitwise OR)
+	^  (bitwise XOR)
+	&^ (bitwise (AND NOT))
+	<< (left shift)
+	>> (right shift)
+
+Comparison Operators
+	== (equal)
+	!= (not equal)
+	<  (less than)
+	<= (less than or equal to)
+	>  (greater than)
+	>= (greater than or equal to)
+*/
+
+}

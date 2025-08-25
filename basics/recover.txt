@@ -1,0 +1,22 @@
+package main
+
+import "fmt"
+
+func main() {
+	
+	process()
+	fmt.Println("Returned from process")
+
+}
+
+func process() {
+	defer func () {
+		if r := recover(); r != nil {
+			fmt.Println("recovered:", r)
+		}
+	} ()
+
+	fmt.Println("Start process")
+	panic("something went wrong!")
+	fmt.Println("End process") // not triggered
+}

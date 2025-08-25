@@ -1,0 +1,71 @@
+package main
+
+import "fmt"
+
+func main() {
+	// var ele = [4]int{1, 2, 3, 4}
+	// fmt.Println(ele)
+	
+	// var array_name  [size] data_type
+	// var nums [5]int
+	// fmt.Println(nums)
+
+	// nums[4] = 10
+	// fmt.Println(nums)
+
+	// nums[0] = 9
+	// fmt.Println(nums)
+
+	// fruits := [4]string{"Apple", "Banana", "Grapes", "Orange"}
+	// fmt.Println(fruits)
+
+	originalArray := [3]int{1,2,3}
+	// copiedArray := originalArrray
+	
+	var copiedArray *[3]int = &originalArray
+
+	copiedArray[0] = 100
+	fmt.Println("Original Array:", originalArray)
+	fmt.Println("Copied Array:", *copiedArray)
+
+
+	// for i := 0; i < len(nums); i++{
+	// 	fmt.Println("Element at index", i, "is", nums[i])
+	// }
+
+	// for _, v := range nums {
+	// 	fmt.Printf("Value: %d\n", v)
+	// }
+
+	// a, _ := someFunction()
+	// fmt.Println(a)
+
+	// b := 2
+	// _ = b
+
+	// fmt.Println("Length of array:", len(nums))
+
+	// array1 := [3]int{1,2,3}
+	// array2 := [3]int{1,2,3}
+
+	// fmt.Println("array1 and array2 are equal", array1 == array2)
+
+	// var mat1 [2][1]int = [2][1]int {
+	// 	{1},
+	// 	{2},
+	// }
+	// fmt.Println(mat1)
+
+	// matrix := [3][3]int {
+	// 	{1,2,3},
+	// 	{4,5,6},
+	// 	{7,8,9},
+	// }
+
+	// fmt.Println(matrix)
+
+}
+
+// func someFunction() (int, int) {
+// 	return 1, 2
+// }

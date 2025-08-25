@@ -1,0 +1,43 @@
+package main
+
+import (
+	"fmt"
+	"errors"
+)
+
+func main() {
+/*
+	func functionName(para1 type1, para2 type2, ...) (returntype1, returntype2, ...) {
+		code block
+		return return1, return2, ...
+	}
+*/
+
+	q, r := divide(10, 3)
+	fmt.Printf("Quotient: %d, remainder %d\n", q, r)
+
+	result, err := compare(2, 2)
+	if err != nil {
+		fmt.Println("error:", err)
+	} else {
+		fmt.Println(result)
+	}
+
+}
+
+func divide(a, b int) (quotient int, remainder int) {
+	quotient = a / b
+	remainder = a % b
+
+	return
+}
+
+func compare(a, b int) (string, error) {
+	if a > b {
+		return "a is greater than b", nil
+	} else if b > a {
+		return "b is greater than a", nil
+	}
+
+	return "", errors.New("unabale to compare which is greater")
+}

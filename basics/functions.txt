@@ -1,0 +1,61 @@
+package main
+
+import "fmt"
+
+func main() {
+/*
+Function declaration
+	func <name>(parameters list) (return values) {
+		code body
+		return 
+	}
+
+	Public functions should start with an uppercase letter & private functions should start with lowercase letter
+	
+	fmt.Println() // --> public func
+	
+	sum := add(1, 3)
+	fmt.Println(sum)
+	fmt.Println(add(3,5))
+	
+	func () {
+		fmt.Println("Hello anonymous func!")
+		} ()
+		
+		greet := func () {
+			fmt.Println("hey greetings!")
+		}
+		greet()
+		
+		operation := add // --> first class citizen
+		result := operation(5, 5)
+		
+		fmt.Println(result)
+*/
+
+	// Passing function as an argument
+	result := applyOperation(5, 3, add)
+	fmt.Println("5 + 3 =", result)
+
+	// Returning and using a func
+	multiplyBy2 := createMultiplier(2)
+	fmt.Println("6 * 2 =", multiplyBy2(6))
+
+}
+
+// Function that takes a function as argument
+func applyOperation(x int, y int, operation func(int, int) int) int {
+	return operation(x, y)
+}
+
+// Function that returns a function
+func createMultiplier(factor int) func(int) int {
+	return func(x int) int {
+		return x * factor
+	}
+}
+
+func add(a, b int) int {
+	return a + b
+}
+ 
