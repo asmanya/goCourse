@@ -1,0 +1,52 @@
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+func main() {
+	var a, b int = 10, 3
+	var result int
+	
+	result = a + b
+	fmt.Println("Addition:", result)
+
+	result = a - b
+	fmt.Println("Subtraction:", result)
+
+	result = a * b
+	fmt.Println("Multiplication:", result)
+	
+	result = a / b
+	fmt.Println("Division:", result)
+
+	result = a % b
+	fmt.Println("Modulus:", result)
+
+	const p float64 = 22.0/7
+	fmt.Println("p:", p)
+
+	var maxInt int64 = 9223372036854775807
+	fmt.Println("Max Int64:", maxInt)
+
+	// OVERFLOW with signed integers
+	maxInt += 1
+	fmt.Println("Max Int64 after overflow:", maxInt)
+
+	var uMaxInt uint64 = 18446744073709551615
+	fmt.Println("Max Uint64:", uMaxInt)
+	
+	// OVERFLOW with unsigned integers
+	uMaxInt += 1
+	fmt.Println("Max Uint64 after overflow:", uMaxInt)
+
+	var smallFloat float64 = 1.0e-323
+	fmt.Println("Small Float32:", smallFloat)
+
+	// UNDERFLOW with floats
+	smallFloat = smallFloat / math.MaxFloat64
+	fmt.Println("Small Float32 after division:", smallFloat)
+
+	
+}
