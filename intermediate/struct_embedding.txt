@@ -1,0 +1,37 @@
+package main
+
+import "fmt"
+
+type person struct {
+	name string
+	age  int
+}
+
+type employee struct {
+	person
+	empid  string
+	salary float64
+}
+
+func (p person) introduce() {
+	fmt.Printf("hi! I am %s & i'm of %d age\n", p.name, p.age)
+}
+
+func (e employee) introduce() {
+	fmt.Printf("hi! I am %s, emp ID of %s and salary %.2f, i'm of %d age.\n", e.name, e.empid, e.salary, e.age)
+}
+
+func main() {
+
+	emp := employee{
+		person: person{name: "john", age: 30},
+		empid:  "E101",
+		salary: 50000,
+	}
+
+	fmt.Println("Name:", emp.name)
+	fmt.Println("age:",emp.age)
+	fmt.Println("emp ID:", emp.empid)
+	fmt.Println("salary:", emp.salary)
+	emp.introduce()
+}

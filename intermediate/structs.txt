@@ -1,0 +1,80 @@
+package main
+
+import "fmt"
+
+// structs and methods should be defined at tha package level
+
+type Address struct {
+	city    string
+	country string
+}
+
+type Person struct {
+	firstName string
+	lastName  string
+	age       int
+	address   Address
+	PhoneHomeCell
+}
+
+type PhoneHomeCell struct {
+	home string
+	cell string
+}
+
+func (p Person) fullName() string {
+	return p.firstName + " " + p.lastName
+}
+
+func (p *Person) incrementAgeByOne() {
+	p.age++
+}
+
+func main() {
+
+	p1 := Person{
+		firstName: "John",
+		lastName:  "Doe",
+		age:       30,
+		address: Address{
+			city:    "London",
+			country: "UK",
+		},
+		PhoneHomeCell: PhoneHomeCell{
+			home: "432342424",
+			cell: "323242342324342",
+		},
+	}
+
+	p2 := Person{
+		firstName: "Jane",
+		age:       25,
+	}
+	p2.address.city = "New York"
+	p2.address.country = "USA"
+
+	fmt.Println(p1.firstName)
+	fmt.Println(p2.firstName)
+	fmt.Println(p2.age)
+
+	// Anonymous struct
+
+	user := struct {
+		username string
+		email    string
+	}{
+		username: "user124",
+		email:    "psuedomail@example.com",
+	}
+
+	fmt.Println(user.email)
+	fmt.Println(user.username)
+	fmt.Println(p1.fullName())
+
+	p1.incrementAgeByOne()
+	fmt.Println(p1.age)
+
+	fmt.Println(p1.address.city)
+	fmt.Println(p2.address.country)
+	fmt.Println(p1.home)
+}

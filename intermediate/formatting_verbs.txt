@@ -1,0 +1,15 @@
+package main
+
+import "fmt"
+
+func main() {
+	i := 2_322_311_315.5
+	string := "Hello World!"
+
+	fmt.Printf("%v\n", i)
+	fmt.Printf("%v\n", string)
+	fmt.Printf("%#v\n", string)
+	fmt.Printf("%T\n", string)
+
+	// ... and much more these are easily avallable on documentation
+}

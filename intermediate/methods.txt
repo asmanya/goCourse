@@ -1,0 +1,60 @@
+package main
+
+import "fmt"
+
+type Shape struct {
+	Rectangle	
+}
+
+type Rectangle struct {
+	length float64
+	width float64
+}
+
+// method with value reciever
+func (r Rectangle) Area() float64 {
+	return r.length * r.width
+}
+
+// method with pointer reciever
+func (r *Rectangle) Scale(factor float64) {
+	r.length *= factor
+	r.width *= factor
+}
+
+// custom type
+type myInt int
+
+// method on user-defined type
+func (m myInt) isPositive() bool {
+	return m > 0
+}
+
+func (myInt) welcomeFunc() string {
+	return "Welcome to myInt Type"
+}
+
+func main() {
+	rect := Rectangle{
+		length: 10,
+		width: 7,
+	}
+
+	fmt.Println(rect.Area())
+	rect.Scale(2)
+	fmt.Println(rect.Area())
+
+	num := myInt(-5)
+	num1 := myInt(9)
+
+	fmt.Println(num.isPositive())
+	fmt.Println(num1.isPositive())
+	str := num1.welcomeFunc()
+	fmt.Println(str)
+
+	s := Shape {Rectangle: Rectangle{
+		length: 10,
+		width: 9,
+	}}
+	fmt.Println(s.Area())
+}

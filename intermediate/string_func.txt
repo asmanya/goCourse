@@ -1,0 +1,98 @@
+package main
+
+import (
+	"fmt"
+	// "regexp"
+	"strings"
+	//"unicode/utf8"
+	// "strconv"
+)
+
+func main() {
+/*
+	str := "Hello Go!"
+	fmt.Println(len(str))
+
+	str1 := "Hello"
+	str2 := "World"
+	result := str1 + " " + str2
+
+	fmt.Println(result)
+	fmt.Println(len(result))
+
+	fmt.Println(str1[3])
+	fmt.Println(str[1:len(str)-2])
+	// String conversions
+	num := 183432
+	str3 := strconv.Itoa(num)
+	fmt.Println(len(str3))
+	
+	// String splitting
+	fruits := "apple,orange,banana"
+	parts := strings.Split(fruits, ",")
+	fmt.Println(parts)
+	
+	// String concat
+	countries := []string{"Germany", "UK", "Italy"}
+	joined := strings.Join(countries, ", ")
+	fmt.Println(joined)
+	
+	// Checks substr
+	fmt.Println(strings.Contains(str3, "83"))
+	
+	// Replace substr
+	replaced := strings.Replace(str3, "83", "Universe", 1)
+	fmt.Println(replaced)
+	
+	// Trim space
+	strwspace := "   Hello, World!"
+	fmt.Println(strwspace)
+	fmt.Println(strings.TrimSpace(strwspace))
+	
+	// Change case
+	fmt.Println(strings.ToLower(strwspace))
+	fmt.Println(strings.ToUpper(strwspace))
+	
+	// Repeat
+	fmt.Println(strings.Repeat("foo ", 3))
+	
+	// Count
+	fmt.Println(strings.Count(strwspace, "l"))
+	
+	// Suffix, Prefix
+	fmt.Println(strings.HasSuffix("Hello", "ll"))
+	
+	str5 := "He1ll3o, 123 Go 323 123"
+	re := regexp.MustCompile(`\d+`)
+	
+	matches := re.FindAllString(str5, -1)
+	fmt.Println(matches)
+	
+	str6 := "Hello, やあ、元気"
+	fmt.Println(utf8.RuneCountInString(str6))
+*/
+	// String builder
+	var builder strings.Builder
+
+	// Write some strings
+	builder.WriteString("Hello")
+	builder.WriteString(", ")
+	builder.WriteString("world! ")
+	
+	// Convert builder to string
+	result := builder.String()
+	fmt.Println(result)
+
+	// Using write rune
+	builder.WriteRune('-')
+	builder.WriteString(" How are you? ")
+
+	result = builder.String()
+	fmt.Println(result)
+
+	builder.Reset()
+	builder.WriteString("Starting fresh")
+	result = builder.String()
+
+	fmt.Println(result)
+}
