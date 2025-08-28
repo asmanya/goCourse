@@ -1,0 +1,5 @@
+hey! you are reading rf_input file.
+this is 1st line
+this is 2nd line
+this is 3rd line
+bye!
