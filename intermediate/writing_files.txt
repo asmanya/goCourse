@@ -1,0 +1,41 @@
+package main
+
+import (
+	"fmt"
+	"os"
+)
+
+func main() {
+
+	file, err := os.Create("wf_output.txt")
+	if err != nil {
+		fmt.Println("Error creating file", err)
+		return
+	}
+	defer file.Close()
+
+	// write data to file
+	data := []byte("Hello, this is the wf_output file")
+	_, err = file.Write(data)
+	if err != nil {
+		fmt.Println("Error writing to file", err)
+		return
+	}
+
+	fmt.Println("Data has been written to the wf_output file successfully")
+
+	file, err = os.Create("wf_writeString.txt")
+	if err != nil {
+		fmt.Println("Error creating file", err)
+		return
+	}
+	defer file.Close()
+
+	_, err = file.WriteString("Hello, this is the wf_writeString file\n")
+	if err != nil {
+		fmt.Println("Error writing to file", err)
+		return
+	}
+
+	fmt.Println("Data has been written to the wf_writeString file successfully")
+}

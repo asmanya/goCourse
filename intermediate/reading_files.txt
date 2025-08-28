@@ -1,0 +1,48 @@
+package main
+
+import (
+	"bufio"
+	"fmt"
+	"os"
+)
+
+func main() {
+
+	file, err := os.Open("rf_input.txt")
+	if err != nil {
+		fmt.Println("Error opening file", err)
+		return
+	}
+	defer func() {
+		fmt.Println("EOF! Closing file")
+		file.Close()
+	}()
+
+	fmt.Println("File opened successfully")
+
+/*
+	// Read the contents of file
+	data := make([]byte, 1024)
+	_, err = file.Read(data)
+	if err != nil {
+		fmt.Println("Error reading data from file", err)
+		return
+	}
+	fmt.Println("Data read successfully")
+	fmt.Println("File content:", string(data))
+*/
+
+	scanner := bufio.NewScanner(file)
+
+	for scanner.Scan() {
+		line := scanner.Text()
+		fmt.Println("Line:", line)
+	}
+
+	err = scanner.Err()
+	if err != nil {
+		fmt.Println("Error reading file", err)
+		return
+	}
+
+}

@@ -1,0 +1,46 @@
+package main
+
+import (
+	"strconv"
+	"fmt"
+)
+
+func main() {
+
+	numstr := "123123"
+	num, err := strconv.Atoi(numstr)
+	if err != nil {
+		fmt.Println("Error:", err)
+	}
+	fmt.Println(num)
+	fmt.Println(num+1)
+
+	numistr, err := strconv.ParseInt(numstr, 10, 32)
+	if err != nil {
+		fmt.Println("Error:", err)
+	}
+	fmt.Println(numistr)
+
+	floatstr := "3.14"
+	floatval, err := strconv.ParseFloat(floatstr, 64)
+	if err != nil {
+		fmt.Println("Error:", err)
+	}
+	fmt.Println(floatval)
+
+	binarystr := "10100101011"
+	decimal, err := strconv.ParseInt(binarystr, 2, 64)
+	if err != nil {
+		fmt.Println("Error:", err)
+	}
+	fmt.Println("decimal value:", decimal)
+	
+	hexstr := "1380F1F61"
+	hex, err := strconv.ParseInt(hexstr, 16, 64)
+	if err != nil {
+		fmt.Println("Error:", err)
+	}
+	fmt.Println("decimal value:", hex)
+
+	
+}

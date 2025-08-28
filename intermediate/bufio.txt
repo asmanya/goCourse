@@ -1,0 +1,66 @@
+package main
+
+import (
+	"bufio"
+	"fmt"
+	"os"
+	// "strings"
+)
+
+func main() {
+/*
+	reader := bufio.NewReader(strings.NewReader("Hello, bufio packageee!\nHow are you doing?"))
+
+	// Reading byte slice
+	data := make([]byte, 20)
+	n, err := reader.Read(data)
+	if err != nil {
+		fmt.Println("Error reading:", err)
+		return
+	}
+	fmt.Printf("Read %d bytes: %s\n", n, data[:n])
+
+	line, err := reader.ReadString('\n')
+	if err != nil {
+		fmt.Println("Error reading string:", err)
+		return
+	}
+
+	fmt.Println("Read String:", line)
+*/
+
+	writer := bufio.NewWriter(os.Stdout)
+
+	// Writing byte slice
+	data := []byte("Hello, bufio package!\n")
+	nn, err := writer.Write(data)
+	if err != nil {
+		fmt.Println("Error writing:", err)
+		return
+	}
+	fmt.Printf("Wrote %d bytes\n", nn)
+
+	// all the data that is written to the writer is stored in a buffer and it is not immediately written to the writer that we pass as an argument
+	// here stdout. It doesnt not automatically flush the data to the underlying writer, the writer will not automatically recieve the data we have to
+	// flush the data to the writer
+
+	// Flush the buffer to ensure all the data is written to the os.Stdout
+	err = writer.Flush()
+	if err != nil {
+		fmt.Println("Error flushing writer:", err)
+	}
+
+	// Writing string
+	str := "This is a string.\n"
+	nn, err = writer.WriteString(str)
+	if err != nil {
+		fmt.Println("Error writing:", err)
+		return
+	}
+	fmt.Printf("Wrote %d bytes\n", nn)
+
+	err = writer.Flush()
+	if err != nil {
+		fmt.Println("Error flushing writer:", err)
+	}
+}
