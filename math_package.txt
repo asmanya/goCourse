@@ -1,0 +1,49 @@
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+/*
+var (
+	p       = math.Pi
+	e       = math.E
+	ph      = math.Phi
+	sqrt2   = math.Sqrt2
+	sqrtE   = math.SqrtE
+	sqrtPi  = math.SqrtPi
+	sqrtPhi = math.SqrtPhi
+	ln2     = math.Ln2
+	ln10    = math.Ln10
+	log2E   = math.Log2E
+	log10E  = math.Log10E
+)
+*/
+
+func main() {
+	fmt.Println(math.Abs(-3.14))
+	fmt.Println(math.Sqrt(16))
+	fmt.Println(math.Pow(2, 3))
+	fmt.Println(math.Exp(1))
+	fmt.Println(math.Log(math.E))
+	fmt.Println(math.Log10(100))
+	fmt.Println(math.Sin(math.Pi / 2))
+	fmt.Println(math.Cos(math.Pi))
+	fmt.Println(math.Tan(math.Pi / 4))
+	fmt.Println(math.Asin(1))
+	fmt.Println(math.Acos(0))
+	fmt.Println(math.Atan(1))
+	fmt.Println(math.Atan2(1, 1))
+	fmt.Println(math.Sinh(1))
+	fmt.Println(math.Cosh(1))
+	fmt.Println(math.Tanh(1))
+	fmt.Println(math.Erf(1))
+	fmt.Println(math.Erfc(1))
+	fmt.Println(math.Ceil(1.3))
+	fmt.Println(math.Floor(1.7))
+	fmt.Println(math.Round(1.5))
+	fmt.Println(math.Min(1, 2))
+	fmt.Println(math.Max(1, 2))
+	fmt.Println(math.Hypot(3, 4))
+}
