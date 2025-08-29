@@ -1,0 +1,32 @@
+package main
+
+import (
+	"fmt"
+	"os"
+)
+
+func checkError(err error) {
+	if err != nil {
+		fmt.Println("Error:", err)
+		panic(err)
+	}
+}
+
+func main() {
+/*
+	tempFileName := "temporaryFile"
+
+	tempFile, err := os.CreateTemp("", tempFileName)
+	checkError(err)
+	
+	fmt.Println("temp file created:", tempFile.Name())
+	defer tempFile.Close()
+	defer os.Remove(tempFile.Name())
+*/
+
+	tempDir, err := os.MkdirTemp("", "GoCourseTempDir")
+	checkError(err)
+	defer os.RemoveAll(tempDir)
+
+	fmt.Println("Temporary directory created:", tempDir)
+}

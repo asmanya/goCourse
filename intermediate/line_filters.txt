@@ -1,0 +1,45 @@
+package main
+
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strings"
+)
+
+func main() {
+	file, err := os.Open("example.txt")
+	if err != nil {
+		fmt.Println("Error opening file:", err)
+		return
+	}
+	defer func() {
+		fmt.Println("Closing file")
+		file.Close()
+	}()
+
+	fmt.Println("File opened succesfully")
+
+	scanner := bufio.NewScanner(file)
+
+	lineNumber := 1
+		
+	// Keyword to filter lines
+	keyword := "important"
+
+	for scanner.Scan() {
+		line := scanner.Text()
+		if strings.Contains(line, keyword) {
+			updatedLine := strings.ReplaceAll(line, keyword, "necessary")
+			fmt.Printf("%d. FILTERED LINE: %s\n", lineNumber, line)
+			fmt.Printf("%d. UPDATED LINE: %s\n\n", lineNumber, updatedLine)
+			lineNumber++
+		}
+	}
+
+	err = scanner.Err()
+	if err != nil {
+		fmt.Println("Error Scanning file:", err)
+		return
+	}
+}

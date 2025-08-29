@@ -1,0 +1,4 @@
+DEBUG: 2025/08/29 11:35:20.258421 logging.go:35: This is a debug message.
+WARN: 2025/08/29 17:05:20.258421 logging.go:36: This is a warning message.
+2025/08/29 17:05:20.258947 ERROR: This is a error message
+INFO: 2025/08/29 17:05:20.258947 C:/Users/91701/Desktop/goPractice/goCourse/logging.go:38: This is a info message

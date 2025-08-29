@@ -1,0 +1,32 @@
+package main
+
+func main() {
+/*
+	ABOUT GO EXTENSION
+
+	The Go extension for VS Code provides syntax highlighting that differentiates keywords, variables, types,
+	and other Go code elements, improving readability and helping to spot syntax errors using language grammar files for color coding.
+
+	It offers real-time error reporting and diagnostics through gopls, the Go language server implementing the Language Server Protocol,
+	performing syntax and type checking and generating inline error messages with red squiggly lines for errors.
+
+	The extension includes linting to detect potential problems that may not prevent code execution but violate Go conventions,
+	showing warnings as yellow squiggly lines and integrating with tools like golint, staticcheck, and gocheck; errors prevent
+	execution while warnings allow the code to run.
+
+	Code formatting automatically adjusts the code according to Go conventions whenever you save (Ctrl+S), correcting indentation,
+	spacing, and structure, using gofmt or goimports to ensure a consistent style.
+
+	Code navigation features like Go to Definition, Find References, and code suggestions allow developers to track where variables or
+	functions are defined and referenced, analyzing relationships across the codebase via gopls.
+
+	IntelliSense provides code completions, function signatures, and auto-suggestions as you type, using context and available libraries
+	to suggest the most relevant code.
+
+	The extension integrates with Delve for debugging, allowing setting breakpoints, stepping through code, and inspecting variables directly
+	inside VS Code.
+
+	The Go extension acts as a pre-compilation analyzer to catch many errors before code execution, aligning feedback with Go compiler
+	rules to reduce runtime errors and enhance code quality, adherence to conventions, and overall productivity.
+*/
+}

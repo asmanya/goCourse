@@ -1,0 +1,43 @@
+package main
+
+import (
+	"embed"
+	"io/fs"
+	"log"
+
+	// _ "embed" // imported this package solely for its side effects (blank import)
+	"fmt"
+)
+
+//go:embed example_embed.txt
+var content string
+
+//go:embed basics
+var basicsFolder embed.FS
+
+func main() {
+	
+	fmt.Println("Embedded first file content:", content)
+
+	cont, err := basicsFolder.ReadFile("basics/hello.txt")
+	if err != nil {
+		fmt.Println("Error reading file:", err)
+		return
+	}
+
+	fmt.Println("Embedded second file content:", string(cont))
+
+	// reading full contents of the directory
+	err = fs.WalkDir(basicsFolder, "basics", func(path string, d fs.DirEntry, err error) error {
+		if err != nil {
+			fmt.Println(err)
+			return err
+		}
+		fmt.Println(path)
+		return nil
+	})
+
+	if err != nil {
+		log.Fatal(err)
+	}
+}

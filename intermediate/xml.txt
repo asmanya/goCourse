@@ -1,0 +1,90 @@
+package main
+
+import (
+	"encoding/xml"
+	"fmt"
+	"log"
+)
+
+type Person struct {
+	XMLName xml.Name `xml:"person"` // parent element
+	Name    string   `xml:"name"`   // child element
+	Age     int      `xml:"age,omitempty"`
+	Email   string   `xml:"-"`
+	Address Address  `xml:"address"`
+}
+
+type Address struct {
+	City  string `xml:"city"`
+	State string `xml:"state"`
+}
+
+func main() {
+
+	person := Person{
+		Name:  "Jinx",
+		Age:   21,
+		Email: "gg@mail.com",
+		Address: Address{
+			City:  "Arcane",
+			State: "AC",
+		},
+	}
+
+	xmlData, err := xml.Marshal(person)
+	if err != nil {
+		log.Fatal("Error marsahlling data into XML:", err)
+	}
+
+	fmt.Println(string(xmlData))
+
+	xmlData, err = xml.MarshalIndent(person, "", "  ")
+	if err != nil {
+		log.Fatal("Error marsahlling data into XML:", err)
+	}
+
+	fmt.Println(string(xmlData))
+
+	xmlRaw := `<person><name>James</name><age>34</age><address><city>OT</city><state>RI</state></address></person>`
+	var personxml Person
+
+	err = xml.Unmarshal([]byte(xmlRaw), &personxml)
+	if err != nil {
+		log.Fatal("Error unmarshalling xml:", err)
+	}
+
+	fmt.Println(personxml)
+
+	book := Book{
+		ISBN:   "585-343-245-34-345-24",
+		Title:  "fine shyt",
+		Author: "gz",
+		Content: Content{
+			Chapter: "ts tuff?",
+			Index: "1",
+			Summary: "crazy shyt",
+		},
+	}
+
+	xmlData, err = xml.MarshalIndent(book, "", "  ")
+	if err != nil {
+		log.Fatal("Error marshalling data to xml:", err)
+	}
+
+	fmt.Println(string(xmlData))
+
+}
+
+type Book struct {
+	XMLName xml.Name `xml:"book"`      // parent element
+	ISBN    string   `xml:"isbn,attr"` // attribute not a child element
+	Title   string   `xml:"title,attr"`
+	Author  string   `xml:"author,attr"`
+	Content Content  `xml:"content"`	// child element
+}
+
+type Content struct {
+	Chapter string `xml:"chapter"`
+	Index   string `xml:"index,attr"`
+	Summary string `xml:"summary"`
+}

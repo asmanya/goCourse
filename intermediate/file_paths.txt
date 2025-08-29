@@ -1,0 +1,29 @@
+package main
+
+import (
+	"fmt"
+	"path/filepath"
+)
+
+func main() {
+	relativePath := "./data/file.txt"
+	absolutePath := "/home/user/docs/file.txt"
+
+	// join paths using filepath.join
+	joinedPath := filepath.Join("Home", "Documents", "downloads", "file.zip")
+
+	fmt.Println("Joined path:", joinedPath)
+
+	normalizedPath := filepath.Clean("./data/../data/file.txt")
+	fmt.Println("Cleaned path:",normalizedPath)
+
+	dir, file := filepath.Split("/home/user/docs/file.txt")
+	fmt.Println("file:", file)
+	fmt.Println("dir:", dir)
+
+	fmt.Println("Base:", filepath.Base("/home/user/docs/file.txt"))
+
+	fmt.Println("Is relativePath variable absolute?", filepath.IsAbs(relativePath))
+	fmt.Println("Is absolutePath variable absolute?", filepath.IsAbs(absolutePath))
+
+}

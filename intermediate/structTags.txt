@@ -1,0 +1,29 @@
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+	"log"
+)
+
+type person struct {
+	FirstName string `json:"first_name" db:"firstn" xml:"first"`
+	LastName  string `json:"last_name,omitempty"` // omitted if it have zero value
+	Age       int    `json:"-"` // completly omit this value always
+}
+
+func main() {
+	person := person{
+		FirstName: "Jinx",
+		LastName:  "washere",
+		Age:       30,
+	}
+
+	jsonData, err := json.Marshal(person)
+	if err != nil {
+		log.Fatal("Error marshalling data:", err)
+	}
+
+	fmt.Println("Person1 data:", string(jsonData))
+
+}

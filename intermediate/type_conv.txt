@@ -1,0 +1,18 @@
+package main
+
+import "fmt"
+
+func main() {
+	var a int = 32
+	b := int32(a)
+	c := float64(b)
+
+	d := 3.14
+	e := int(d)
+	fmt.Println(c, e)
+
+	// Type(Value)
+	f := "Hello @sdfWERDF2342"
+	g := []byte(f)
+	fmt.Println(g)
+}
