@@ -1,0 +1,30 @@
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func main() {
+	// by default channels are unbuffered - unbuff channels needs an immediate reciever
+	// the default behaviour of unbuffered channels is to wait for go routines to end, even if they are not related to the go routine
+
+	ch := make(chan int)
+	go func() {
+		time.Sleep(2 * time.Second)
+		fmt.Println(<-ch)
+		fmt.Println("2 second goroutine finished")
+	}()
+	ch <- 1
+
+	// go func() {
+	// 	time.Sleep(3 * time.Second)
+	// 	fmt.Println("3 second goroutine finished")
+	// }()
+
+	// reciever := <-ch
+	// fmt.Println(reciever)
+
+	time.Sleep(3 * time.Second)
+	fmt.Println("End of program")
+}

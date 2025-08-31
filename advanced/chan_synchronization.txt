@@ -1,0 +1,83 @@
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+/*
+func main() {
+
+	done := make(chan struct{})
+
+	go func() {
+		fmt.Println("Working...")
+		time.Sleep(2 * time.Second)
+		done <- struct{}{}
+	}()
+
+	<- done
+	fmt.Println("Finished.")
+}
+
+
+func main(){
+
+ch := make(chan int) // unbuffered channel
+
+go func() {
+	ch <- 9 // blocking following line until the value is sent
+	fmt.Println("Sent value")
+	}()
+
+	value := <-ch // Blocking following line until the value is recieved
+	fmt.Println("value:", value)
+}
+
+
+// ============ SYNCHRONIZING MULTIPLE GOROUTINES ================
+// ENSURING THAT ALL GOROUTINES ARE COMPLETE
+
+func main() {
+
+numGoRoutines := 3
+done := make(chan int, 3) // buffered channel
+
+for i :=  range numGoRoutines {
+	time.Sleep(2 * time.Second)
+	go func(id int) {
+		fmt.Printf("Goroutine %d working...\n", id)
+		// time.Sleep(time.Second)
+		done <- id
+		}(i)
+	}
+
+	for range numGoRoutines {
+		<- done // wait for each go routine to finish, WAIT FOR ALL GOROUTINES TO SIGNAL COMPLETION
+	}
+
+	fmt.Println("All goroutines are finished.")
+
+}
+
+*/
+
+// ================ SYNCHRONIZING DATA EXCHANGE ==================
+func main() {
+
+	data := make(chan string)
+
+	go func() {
+		for i := 0; i < 5; i++ {
+			data <- "Hello " + fmt.Sprintf("%d", i)
+			time.Sleep(100 * time.Millisecond)
+		}
+		close(data)
+	}()
+	// close(data) --> channel closed before goroutine could send a value to the channel 
+
+	for value := range data { // ranging over channel
+		fmt.Println("Recieved value:", value, ":", time.Now())
+	} // loops only on active channel, creates reciever each time, and stops when channel is closed
+
+}

@@ -1,0 +1,53 @@
+package main
+
+import (
+	"fmt"
+	"time"
+)
+/*
+============== BLOCKING ON RECEIEVE ONLY IF BUFFER IS EMPTY =============
+
+func main() {
+
+	ch := make(chan int, 2)
+	
+	go func () {
+		fmt.Println("This is a goroutine")
+		time.Sleep(2 * time.Second)
+		ch <- 1
+		ch <- 2
+	}()
+
+	fmt.Println("value:", <-ch)
+	fmt.Println("value:", <-ch)
+	fmt.Println("End of program.")
+
+}
+*/
+
+// ============ BLOCKING ON SEND ONLY IF BUFFER IS FULL ================
+
+func main() {
+
+	// make(chan type, capacity)
+
+	ch := make(chan int, 2)
+	ch <- 1
+	ch <- 2
+
+	fmt.Println("Recieving form buffer")
+	go func() {
+		time.Sleep(2 * time.Second)
+		fmt.Println("recieved:", <-ch) // ends <-< start
+	}()
+
+	fmt.Println("blocking starts")
+	ch <- 3
+	// fmt.Println("blocking ends")
+
+	// ch <- 3 --> shows deadlock
+	// 	fmt.Println("value2: ", <-ch)
+	// 	fmt.Println("value3: ", <-ch)
+
+	// 	fmt.Println("Buffered channels")
+}
