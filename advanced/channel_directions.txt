@@ -1,0 +1,29 @@
+package main
+
+import "fmt"
+
+func main() {
+
+	ch := make(chan int)
+
+	producer(ch)
+	consumer(ch)
+
+}
+
+// SEND only channel
+func producer(ch chan<- int) {
+	go func() {
+		for i := range 5 {
+			ch <- i
+		}
+		close(ch)
+	}()
+}
+
+// RECEIVE only channel
+func consumer(ch <-chan int) {
+	for val := range ch {
+		fmt.Println("Received:", val)
+	}
+}
