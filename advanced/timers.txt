@@ -1,0 +1,93 @@
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func main() {
+	timer1 := time.NewTimer(time.Second)
+	timer2 := time.NewTimer(2 * time.Second)
+
+	done1, done2 := false, false
+
+	for !(done1 && done2) {
+		select {
+		case <-timer1.C:
+			if !done1 {
+				fmt.Println("timer1 expired")
+				done1 = true
+			}
+		case <-timer2.C:
+			if !done2 {
+				fmt.Println("timer2 expired")
+				done2 = true
+			}
+		}
+	}
+}
+
+/*
+========= SCHEDULING DELAYED OPERATIONS ========
+
+func main() {
+
+	timer := time.NewTimer(2 * time.Second)
+
+	go func() {
+		<- timer.C
+		fmt.Println("delayed operation execution.")
+	}()
+
+	fmt.Println("Waiting")
+	time.Sleep(3 * time.Second)
+	fmt.Println("End of program")
+
+}
+
+========= TIMEOUT ===========
+
+func longRunningOperation() {
+	for i := range 20 {
+		fmt.Println(i)
+		time.Sleep(time.Second)
+	}
+}
+
+func main() {
+	timeout := time.After(10 * time.Second)
+	done := make(chan bool)
+
+	go func() {
+		longRunningOperation()
+		done <- true
+	}()
+
+	select {
+	case <- timeout:
+		fmt.Println("operation timed out.")
+	case <- done:
+		fmt.Println("operation comepleted.")
+	}
+}
+
+=========== BASIC TIMER USE ===============
+
+func main() {
+	fmt.Println("Starting app.")
+	timer := time.NewTimer(2 * time.Second)
+	fmt.Println("Waiting for timer.C")
+	stopped := timer.Stop()
+
+	if stopped {
+		fmt.Println("Timer stopped")
+	}
+
+	timer.Reset(time.Second)
+	fmt.Println("timer reset")
+
+	<- timer.C // blocking in nature
+	fmt.Println("Timer expired")
+
+}
+*/
