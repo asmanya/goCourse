@@ -1,0 +1,67 @@
+package main
+
+import (
+	"fmt"
+	"sync"
+	"time"
+)
+
+type LeakyBucket struct {
+	capacity int
+	leakRate time.Duration
+	tokens   int
+	lastLeak time.Time
+	mu       sync.Mutex
+}
+
+func NewLeakyBucket(capacity int, leakRate time.Duration) *LeakyBucket {
+	return &LeakyBucket{
+		capacity: capacity,
+		leakRate: leakRate,
+		tokens:   capacity,
+		lastLeak: time.Now(),
+	}
+}
+
+func (lb *LeakyBucket) Allow() bool {
+	lb.mu.Lock()
+	defer lb.mu.Unlock()
+
+	now := time.Now()
+	elapsedTime := now.Sub(lb.lastLeak)
+	tokenToAdd := int(elapsedTime / lb.leakRate)
+	lb.tokens += tokenToAdd
+
+	if lb.tokens > lb.capacity {
+		lb.tokens = lb.capacity
+	}
+
+	lb.lastLeak = lb.lastLeak.Add(time.Duration(tokenToAdd) * lb.leakRate)
+
+	if lb.tokens > 0 {
+		lb.tokens--
+		return true
+	}
+
+	return false
+}
+
+func main() {
+	var wg sync.WaitGroup
+	LeakyBucketInst := NewLeakyBucket(5, 1000*time.Millisecond)
+
+	for range 10 {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			if LeakyBucketInst.Allow() {
+				fmt.Println("Request allowed.")
+			} else {
+				fmt.Println("XXX----Request denied.")
+			}
+		}()
+		// time.Sleep(200 * time.Millisecond)
+	}
+
+	wg.Wait()
+}

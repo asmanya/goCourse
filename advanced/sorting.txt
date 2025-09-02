@@ -1,0 +1,104 @@
+package main
+
+import (
+	"fmt"
+	"sort"
+)
+
+type Person struct {
+	Name string
+	Age  int
+}
+
+type By func(p1, p2 *Person) bool
+
+type personSorter struct {
+	people []Person
+	by     func(p1, p2 *Person) bool
+}
+
+func (s *personSorter) Len() int {
+	return len(s.people)
+}
+
+func (s *personSorter) Less(i, j int) bool {
+	return s.by(&s.people[i], &s.people[j])
+}
+
+func (s *personSorter) Swap(i, j int) {
+	s.people[i], s.people[j] = s.people[j], s.people[i]
+}
+
+func (by By) Sort(people []Person) {
+	ps := &personSorter{
+		people: people,
+		by:     by,
+	}
+
+	sort.Sort(ps)
+}
+
+/*
+type ByAge []Person
+
+func (a ByAge) Len() int {
+	return len(a)
+}
+
+func (a ByAge) Less(i, j int) bool {
+	return a[i].Age < a[j].Age
+}
+
+func (a ByAge) Swap(i, j int) {
+	a[i], a[j] = a[j], a[i]
+}
+*/
+
+func main() {
+	/*
+		numbers := []int{5, 4, 3, 5, 6, 3, 2, 4}
+		sort.Ints(numbers)
+		fmt.Println("sorted numbers:", numbers)
+
+		stringSlice := []string{"john", "anthony", "steve", "Victor"}
+		sort.Strings(stringSlice)
+		fmt.Println("sorted strings:", stringSlice)
+	*/
+
+	people := []Person{
+		{"alice", 30},
+		{"Bob", 25},
+		{"Anna", 35},
+	}
+
+	// sort.Sort(ByAge(people))
+	ageAsc := func(p1, p2 *Person) bool {
+		return p1.Age < p2.Age
+	}
+
+	By(ageAsc).Sort(people)
+	fmt.Println("Sorted by age | ascending:", people)
+
+	ageDsc := func(p1, p2 *Person) bool {
+		return p1.Age > p2.Age
+	}
+
+	By(ageDsc).Sort(people)
+	fmt.Println("Sorted by age | descending:", people)
+
+	name := func(p1, p2 *Person) bool {
+		return p1.Name < p2.Name
+	}
+
+	By(name).Sort(people)
+	fmt.Println("Sorted by name:", people)
+
+// ===== SORT.SLICE ==========
+	stringSlice := []string{"banana", "apple", "grapes", "guava", "cheery"}
+
+	sort.Slice(stringSlice, func(i, j int) bool {
+		return stringSlice[i][len(stringSlice[i])-1] < stringSlice[j][len(stringSlice[j])-1]
+	})
+
+	fmt.Println("sorted by last character stringSlice:", stringSlice)
+}
