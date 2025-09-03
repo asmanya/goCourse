@@ -1,0 +1,99 @@
+package main
+
+import (
+	"fmt"
+	"reflect"
+)
+
+// ======= WORKING WITH METHODS =========
+
+type Greeter struct{}
+
+func (g Greeter) Greet(fname, lname string) string {
+	return "hello " + fname + " " + lname
+}
+
+func main() {
+	g := Greeter{}
+	t := reflect.TypeOf(g)
+	v := reflect.ValueOf(g)
+
+	fmt.Println("Type:", t)
+
+	// store the first method
+	method := t.Method(0)
+	fmt.Printf("Method 0: %s\n", method.Name)
+
+	// get the reflect.Value of the method by name
+	m := v.MethodByName(method.Name)
+	results := m.Call([]reflect.Value{reflect.ValueOf("Alice"), reflect.ValueOf("Doe")})
+
+	fmt.Println("Greet result:", results[0].String())
+}
+
+
+
+
+/*
+
+====== WORKING WITH STRUCTS AND FIELDS =============
+
+type person struct {
+	Name string // first alphabet should be capital to be exported and to be used by reflect to modify and access
+	age int
+}
+
+func main() {
+	p := person{Name: "alice", age: 23}
+	v := reflect.ValueOf(p)
+
+	for i := range v.NumField() {
+		fmt.Printf("Field %d: %v\n", i, v.Field(i))
+	}
+
+	v1 := reflect.ValueOf(&p).Elem()
+
+	nameField := v1.FieldByName("Name")
+	if nameField.CanSet() {
+		nameField.SetString("Jane")
+	} else {
+		fmt.Println("cannot set")
+	}
+
+	fmt.Println("modified person:", p)
+}
+
+
+func main() {
+
+	x := 42
+	v := reflect.ValueOf(x)
+
+	t := v.Type()
+
+	fmt.Println("value:", v)
+	fmt.Println("type:", t)
+	fmt.Println("is int:", t.Kind() == reflect.Int)
+	fmt.Println("is string:", t.Kind() == reflect.String)
+	fmt.Println("is zero:", v.IsZero())
+
+	y := 10
+	v1 := reflect.ValueOf(&y).Elem()
+	v2 := reflect.ValueOf(&y)
+	
+	fmt.Println("v2 type:",v2.Type())
+	fmt.Println("original value:",v1.Int())
+
+	v1.SetInt(18)
+	fmt.Println("modified string:", v1.Int())
+
+	var itf interface{} = "hello"
+	v3 := reflect.ValueOf(itf)
+
+	fmt.Println("v3 type:",v3.Type())
+	if v3.Kind() == reflect.String {
+		fmt.Println("string value", v3.String())
+	}
+
+}
+*/

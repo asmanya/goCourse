@@ -1,0 +1,139 @@
+package main
+
+import (
+	"math/rand"
+	"testing"
+)
+
+func GeneratingRandomSlice(size int) []int {
+	slice := make([]int, size)
+	for i := range slice {
+		slice[i] = rand.Intn(100)
+	}
+
+	return slice
+}
+
+func SumSlice(slice []int) int {
+	sum := 0
+	for _, val := range slice {
+		sum += val
+	}
+
+	return sum
+}
+
+func TestGenerateRandomSlice(t *testing.T) {
+	size := 100
+	slice := GeneratingRandomSlice(size)
+
+	if len(slice) != size {
+		t.Errorf("expected slice size: %d, recieved: %d", size, len(slice))
+	}
+}
+
+func BenchmarkGenerateRandomSlice(b *testing.B) {
+	for range b.N {
+		GeneratingRandomSlice(1000)
+	}
+}
+
+func BenchmarkSumSlice(b *testing.B) {
+	slice := GeneratingRandomSlice(1000) // takes setup time
+	b.ResetTimer() // to reset setup time
+
+	for range b.N {
+		SumSlice(slice)
+	}
+}
+
+// running with command = go test -bench=. -memprofile mem.pprof testing_benchmarking_test.go
+// this creates two files with names main.test.exe and mem.pprof
+// to run profiling data pprof file, use command - go tool pprof mem.pprof - this will get us inside the pprof tool 
+
+/*
+
+func Add(a, b int) int {
+	return a + b
+	}
+
+// ============ BENCHMARKING ============
+func BenchmarkAddSmallInput(b *testing.B) {
+	for range b.N {
+		Add(2, 3)
+	}
+}
+
+func BenchmarkAddMediumInput(b *testing.B) {
+	for range b.N {
+		Add(200, 300)
+	}
+}
+func BenchmarkAddLargeInput(b *testing.B) {
+	for range b.N {
+		Add(2000, 3000)
+	}
+}
+
+==== FOR BENCHMARKING, FOLLOW THESE ====
+
+// start function names with Benchmark in front
+// pass argument to function - a pointer to testing.B
+// in command line use flags, write go test -bench=. "filename"
+// you can also write -benchmem etc commands to include extra information
+
+
+============== TESTING =================
+
+func TestAddSubtests(t *testing.T) {
+	tests := []struct{a, b, expected int} {
+		{2, 3, 5},
+		{0, 0, 0},
+		{-1, 1, 0},
+	}
+
+	for _, test := range tests {
+
+		// defining sub test
+		t.Run(fmt.Sprintf("Add(%d, %d)", test.a, test.b), func(t *testing.T){
+			result := Add(test.a, test.b)
+			if result != test.expected {
+				t.Errorf("result = %d, want = %d", result, test.expected)
+			}
+		})
+	}
+}
+
+
+func TestAddTableDriven(t *testing.T) {
+	tests := []struct{a, b, expected int}{
+		{2, 3, 5},
+		{0, 0, 0},
+		{-1, 1, 0},
+	}
+
+	for _, test := range tests {
+		result := Add(test.a, test.b)
+		if result != test.expected {
+			t.Errorf("Add(%d, %d) = %d; want = %d", test.a, test.b, result, test.expected)
+		}
+	}
+}
+
+func TestAdd(t *testing.T) {
+	result := Add(2, 4)
+	expected := 5
+
+	if result != expected {
+		t.Errorf("Add(2, 3) = %d; want = %d", result, expected)
+	}
+}
+
+==== FOR TESTING, FOLLOW THESE ====
+
+// write _test at the end of filename
+// start function names with Test in front
+// pass argument to function - a pointer to testing.T
+// run with go test "filename" command
+
+*/

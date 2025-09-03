@@ -1,0 +1,29 @@
+package main
+
+import (
+	"fmt"
+	"os"
+	"os/signal"
+	"syscall"
+	"time"
+)
+
+func main() {
+
+	sigs := make(chan os.Signal, 1)
+
+	// Notify channel on interrupt or terminal signals
+	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
+
+	go func() {
+		sig := <-sigs
+		fmt.Println("Received signal", sig)
+		fmt.Println("Graceful exit...")
+		os.Exit(0)
+	}()
+
+	// simulate work
+	fmt.Println("working...")
+	for {time.Sleep(time.Second)}
+
+}
