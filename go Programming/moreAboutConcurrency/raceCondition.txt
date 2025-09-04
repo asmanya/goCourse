@@ -1,0 +1,52 @@
+package main
+
+import (
+	"fmt"
+	"sync"
+)
+
+type counter struct {
+	mu    sync.Mutex
+	count int
+}
+
+func (c *counter) increment() {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	c.count++
+}
+
+func (c *counter) getValue() int {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	return c.count
+}
+
+func main() {
+
+	var wg sync.WaitGroup
+	counter := &counter{}
+
+	numGoRoutines := 10
+
+	// wg.Add(numGoRoutines)
+
+	for range numGoRoutines {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			for range 1000 {
+				counter.increment()
+			}
+		}()
+	}
+
+	wg.Wait()
+	fmt.Printf("Final counter value: %d\n", counter.getValue())
+
+}
+
+
+/* mutex is mutual exclusion - not allowing multiple thread or process to access a data concurrently. only one can access at a time */
+// we run the file with flag -race. i.e. go run -race "file_name"
+// this is used to check race conditions
