@@ -2,12 +2,26 @@ package main
 
 import (
 	"crypto/tls"
+	"crypto/x509"
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"golang.org/x/net/http2"
 )
+
+func loadClientCAs() *x509.CertPool {
+	clientCAs := x509.NewCertPool()
+	caCert, err := os.ReadFile("cert.pem")
+	if err != nil {
+		log.Fatalln("Could not load clientCA", err)
+	}
+
+	clientCAs.AppendCertsFromPEM(caCert)
+
+	return clientCAs
+}
 
 func main() {
 
@@ -32,6 +46,13 @@ func main() {
 	// Configure TLS
 	tlsConfig := &tls.Config{
 		MinVersion: tls.VersionTLS12,
+		ClientAuth: tls.RequireAndVerifyClientCert, // mTLS (mutual TLS)
+
+		// in mTLS both client and server provide certificates to verify each other, thus this adds an extra layer of security
+		// server verifies the certificate so only authorized clients can connect
+		// say if we create an app, that doesnt require a browser, in that case we can use own self signed certificate but they also need to be verified
+
+		ClientCAs: loadClientCAs(),
 	}
 
 	// Create a custom server
