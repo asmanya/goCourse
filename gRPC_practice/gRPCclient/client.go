@@ -11,6 +11,8 @@ import (
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
+	"google.golang.org/grpc/encoding/gzip"
+	"google.golang.org/grpc/metadata"
 )
 
 func main() {
@@ -21,7 +23,7 @@ func main() {
 		log.Fatalln("Failed to load certificate", err)
 	}
 
-	conn, err := grpc.NewClient("localhost:50051", grpc.WithTransportCredentials(creds))
+	conn, err := grpc.NewClient("localhost:50051", grpc.WithTransportCredentials(creds) /*, grpc.WithDefaultCallOptions(grpc.UseCompressor(gzip.Name))*/)
 	if err != nil {
 		log.Fatalln("Did not connect:", err)
 	}
@@ -41,10 +43,20 @@ func main() {
 	}
 
 	// =============
-	res, err := client.Add(ctx, req)
+	md := metadata.Pairs("authorization", "Bearer=fsdfewefewfwe353453twefsf", "test", "testing", "test2", "testing2")
+	ctx = metadata.NewOutgoingContext(ctx, md)
+
+	var resHeader metadata.MD
+	var resTrailer metadata.MD
+	res, err := client.Add(ctx, req, grpc.UseCompressor(gzip.Name), grpc.Header(&resHeader), grpc.Trailer(&resTrailer))
+
 	if err != nil {
 		log.Fatalln("Could not add", err)
 	}
+	log.Println("resHeader:", resHeader)
+	log.Println("resHeader[test] value:", resHeader["test"][0])
+	log.Println("resTrailer:", resTrailer)
+	log.Println("resTrailer[testtrailer] value:", resTrailer["testtrailer"])
 
 	// ==============
 	reqGreet := &pb.HelloRequest{

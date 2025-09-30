@@ -11,6 +11,10 @@ import (
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
+	"google.golang.org/grpc/metadata"
+	"google.golang.org/grpc/reflection"
+
+	_ "google.golang.org/grpc/encoding/gzip"
 )
 
 type server struct {
@@ -24,8 +28,31 @@ type serverGreeter struct {
 }
 
 func (s *server) Add(ctx context.Context, req *pb.AddRequest) (*pb.AddResponse, error) {
+	md, ok := metadata.FromIncomingContext(ctx)
+	if !ok {
+		log.Println("no metadata received")
+	}
+	log.Println("Metadata:", md)
+
+	val, ok := md["authorization"]
+	if !ok {
+		log.Println("no values with auth key in metadata")
+	}
+	log.Println("authorization:", val[0])
+
+	// Set response header
+	responseHeaders := metadata.Pairs("test", "testValue", "test2", "testing2")
+	err := grpc.SendHeader(ctx, responseHeaders)
+	if err != nil {
+		return nil, err
+	}
+	sum := req.A + req.B
+
+	trailer := metadata.Pairs("testTrailer", "testTrailerVal", "testTrailer1", "testTrailerVal1")
+	grpc.SetTrailer(ctx, trailer)
+
 	return &pb.AddResponse{
-		Sum: req.A + req.B,
+		Sum: sum,
 	}, nil
 }
 
@@ -70,6 +97,8 @@ func main() {
 	pb.RegisterGreeterServer(grpcServer, &serverGreeter{})
 	pb.RegisterBidFarewellServer(grpcServer, &server{})
 	// fw.RegisterAufWiedersehenServer(grpcServer, &server{})
+
+	reflection.Register(grpcServer)
 
 	log.Printf("Server is listening on port: %s\n", port)
 	err = grpcServer.Serve(lis)

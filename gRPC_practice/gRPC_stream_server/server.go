@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 )
 
 type server struct {
@@ -55,7 +56,7 @@ func (s *server) SendNumbers(stream mainpb.Calculator_SendNumbersServer) error {
 func (s *server) Chat(stream mainpb.Calculator_ChatServer) error {
 
 	reader := bufio.NewReader(os.Stdin)
-	
+
 	for {
 		// Recieving values/messages from stream
 		req, err := stream.Recv()
@@ -101,6 +102,9 @@ func main() {
 
 	grpcServer := grpc.NewServer()
 	mainpb.RegisterCalculatorServer(grpcServer, &server{})
+
+	// DO NOT USE REFLECTION IN PRODUCTION, USE THIS ONLY IN DEVELOPMENT
+	reflection.Register(grpcServer)
 
 	err = grpcServer.Serve(lis)
 	if err != nil {
